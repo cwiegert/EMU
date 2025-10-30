@@ -506,7 +506,7 @@ i2c_software_sda_pin: mmu0:PB4
 ```
 It also contains the definition of the onboard EBB temperature sensors used to control the unit fans. Similarly, it is set up for an 8 lane unit, so if you have less lanes, delete the corresponding blocks from the file.
 ```
-[temperature_sensor Lane_N_onboard]
+[temperature_sensor _Lane_N_onboard]
 sensor_type: temperature_mcu
 sensor_mcu: mmu0
 min_temp: 0
@@ -514,12 +514,15 @@ max_temp: 130
 ```
 In addition, it contains the fan definitions for the unit as below. Similarly, it is set up for an 8 lane unit, so if you have less lanes, delete the corresponding blocks from the file.
 ```
-[fan_generic emu_fan_N]
+[fan_generic _emu_fan_N]
 pin: mmu0:PA0
 max_power: 1
 kick_start_time: 0.5
 ```
-Finally it contains the fan control macro that controls the fans on a by-lane basis. In the variable_sensors add the names of the **Lane_N_onboard temperature sensors**, separated by a coma. In the variable_fans add the names of the **base unit fans**, separated by a coma. 
+Finally it contains the fan control macro that controls the fans on a by-lane basis. In the variable_sensors add the names of the **_Lane_N_onboard temperature sensors**, separated by a coma. In the variable_fans add the names of the **base unit fans**, separated by a coma. 
+
+> [!NOTE]
+> Prefixing the fans and board temperature sensors with a _ will hide them from the Mainsail UI, which is helpful to reduce clutter once you have your setup tuned and validated.
 
 > [!IMPORTANT]
 > The length of these two lists must match and correspond to each other (ie lane 0 fan and lane 0 onboard temp sensor must be first on the list etc).
@@ -534,8 +537,8 @@ variable_off_temp: 37.0
 variable_poll_s: 5.0
 variable_enabled: True
 variable_forced: -1                 # -1=AUTO, 0=all OFF, 1=all ON (global)
-variable_sensors: "Lane_0_onboard,Lane_1_onboard,Lane_2_onboard,Lane_3_onboard,Lane_4_onboard,Lane_5_onboard,Lane_6_onboard,Lane_7_onboard"   # Comma-separated temperature_sensor names
-variable_fans:    "emu_fan_0,emu_fan_1,emu_fan_2,emu_fan_3,emu_fan_4,emu_fan_5,emu_fan_6,emu_fan_7"  # Comma-separated fan_generic names
+variable_sensors: "_Lane_0_onboard,_Lane_1_onboard,_Lane_2_onboard,_Lane_3_onboard,_Lane_4_onboard,_Lane_5_onboard,_Lane_6_onboard,_Lane_7_onboard"   # Comma-separated temperature_sensor names
+variable_fans:    "_emu_fan_0,_emu_fan_1,_emu_fan_2,_emu_fan_3,_emu_fan_4,_emu_fan_5,_emu_fan_6,_emu_fan_7"  # Comma-separated fan_generic names
 variable_warned_len_mismatch: False # internal: warn once per enable
 gcode:
 ```
