@@ -162,6 +162,12 @@ The below print settings are recommended for the base units and their accessorie
   </tr>
 </table>
 
+### Combiner:
+Make sure the PTFE tube is pushed all the way inside the combiner. Not just at the ecas entry!
+
+<img width="717" height="1073" alt="image" src="https://github.com/user-attachments/assets/f6e5625f-79d0-4c14-8d80-2ed4bd63bbb4" />
+
+
 
 ## Wiring Instructions and Diagrams
 Depending on the number of lanes assembled, the wiring will vary slightly. Below are some initial wiring key notes to get your started.<br/>
