@@ -265,12 +265,12 @@ Start by completely deleting the content of that file and hitting save.
 
 **Step 2: Paste the below configuration in the mmu_hardware.cfg file**<br/><br/>
 The below starter setup is for an 8 lane unit. To set up a lower lane count, paste the complete content below and change the below:
-1. num_gates: 8 -> to equal to the number of lanes you have
-2. Delete the unecessary tmc and stepper blocks. For example if you have a 5 lane unit, delete Filament Drive Gear_5, Filament Drive Gear_6, Filament Drive Gear_7 blocks from the below.
-3. Delete the uncesessary pre_gate_switch_pin sections and post_gear_switch_pin sections. For example for a 5 lane setup, remove pre_gate_switch_pin_5, pre_gate_switch_pin_6, pre_gate_switch_pin_7, post_gear_switch_pin_5, post_gear_switch_pin_6, post_gear_switch_pin_7
-4. Update the LED chain_count: 16 is for 8 lanes. This needs to be equal to number of lanes x 2. So for a 5 lane setup this would be set to 10.
-5. Update the LED effect exit leds: exit_leds: neopixel:mmu_leds (1,3,5,7,9,11,13,15) is for 8 lanes. For 5, this should be 1,3,5,7,9.
-6. Update the LED effect entry leds: entry_leds: neopixel:mmu_leds (2,4,6,8,10,12,14,16) is for 8 lanes. For 5, this should be 2,4,6,8,10
+1. **num_gates: 8 -> to equal to the number of lanes you have**
+2. **Delete the unecessary tmc and stepper blocks**. For example if you have a 5 lane unit, delete Filament Drive Gear_5, Filament Drive Gear_6, Filament Drive Gear_7 blocks from the below.
+3. **Delete the uncesessary pre_gate_switch_pin lines and post_gear_switch_pin lines**. For example for a 5 lane setup, remove pre_gate_switch_pin_5, pre_gate_switch_pin_6, pre_gate_switch_pin_7, post_gear_switch_pin_5, post_gear_switch_pin_6, post_gear_switch_pin_7
+4. **Update the LED chain_count**: 16 is for 8 lanes. This needs to be equal to number of lanes x 2. So for a 5 lane setup this would be set to 10.
+5. **Update the LED effect exit leds**: exit_leds: neopixel:mmu_leds (1,3,5,7,9,11,13,15) is for 8 lanes. For 5, this should be 1,3,5,7,9.
+6. **Update the LED effect entry leds**: entry_leds: neopixel:mmu_leds (2,4,6,8,10,12,14,16) is for 8 lanes. For 5, this should be 2,4,6,8,10
 
 If you have more than 8 lanes, insert accordingly additional blocks, following the patterns as illustrated in the full configuration file below.
 
@@ -500,21 +500,21 @@ That file contains the **BME temperature and humidity sensor definitions** as be
 [temperature_sensor Lane_N]
 sensor_type: BME280
 i2c_address: 118
-i2c_mcu: mmu0
+i2c_mcu: mmu0  # mmu0=First lane, mmu1=second lane etc.
 i2c_bus: i2c3_PB3_PB4
 ```
 It also contains the definition of the onboard EBB temperature sensors used to control the unit fans. Similarly, it is set up for an 8 lane unit, so if you have less lanes, delete the corresponding blocks from the file.
 ```
 [temperature_sensor _Lane_N_onboard]
 sensor_type: temperature_mcu
-sensor_mcu: mmu0
+sensor_mcu: mmu0 # mmu0=First lane, mmu1=second lane etc.
 min_temp: 0
 max_temp: 130
 ```
 In addition, it contains the fan definitions for the unit as below. Similarly, it is set up for an 8 lane unit, so if you have less lanes, delete the corresponding blocks from the file.
 ```
 [fan_generic _emu_fan_N]
-pin: mmu0:PA0
+pin: mmu0:PA0 # mmu0=First lane, mmu1=second lane etc.
 max_power: 1
 kick_start_time: 0.5
 ```
@@ -639,7 +639,7 @@ extruder_force_homing: 0
 In addition, the below settings have been adjusted to allow more tolerance in case of the extruder delaying grabbing the filament, which improves feeding reliability and allows for more "flex" in a slightly miss-tuned setup</br>
 ```
 toolhead_homing_max: 250			# Increased from default of 40, to allow more tolerance in the extruder not grabbing the filament immediately.
-toolhead_unload_safety_margin: 50	# Increased from the default of 10, to ensure filament is for sure clear of the extruder during unload.
+toolhead_unload_safety_margin: 90	# Increased from the default of 10, to ensure filament is for sure clear of the extruder during unload.
 toolhead_post_load_tighten: 0		# this is ignored as EMU is a Type B MMU - set to 0
 toolhead_post_load_tension_adjust: 1	# Adjust tension post load to attemt to centre the sync feedback sensor. 
 toolhead_entry_tension_test: 0		# Not required - toolhead sensor ensures feeding has happened.
