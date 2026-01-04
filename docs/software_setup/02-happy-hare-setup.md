@@ -89,7 +89,7 @@ The Happy hare installer generates a generic mmu.cfg file that needs re-writing 
 Start by completely deleting the content of that file and hitting save.
 
 **Step 2: Update mmu.cfg with the EMU mcu boards definitions** <br/><br/>
-For each lane you will need a distinct mcu mmu block defining the board name and the canbus UUID as noted earlier. In the example below I am using an 8 lane configuration.
+For each lane you will need one distinct mcu mmu block defining the board name and the canbus UUID as noted earlier. In the example below I am using an 8 lane configuration. For a two lane setup, for example, you'd use [mcu mmu0] and [mcu mmu1] only.
 ```
 [mcu mmu0]
 canbus_uuid: your uuid 
@@ -128,10 +128,10 @@ canbus_interface: can0
 After the board definitions, insert the board pin aliases. 
 
 > [!IMPORTANT]
-> **Important note:** The first board defines the aliases for the tension and compression sensor too, so it is different to the rest. In the example below I am using an 8 lane configuration.
+> **Important note:** The first board defines the aliases for the tension and compression sensor too, so it is different to the rest. In the example below I am using an 8 lane configuration. Remove the correspinding mmuN reference from the mcu line to match the number of lanes you have (eg. mmu0, mmu1 for a two lane setup).
 ```
-[board_pins mmu0]
-mcu: mmu0 
+[board_pins mmu]
+mcu: mmu0, mmu1, mmu2, mmu3, mmu4, mmu5, mmu6, mmu7
 aliases:
     MMU_GEAR_UART=PA15,
     MMU_GEAR_STEP=PD0,
@@ -145,113 +145,8 @@ aliases:
     MMU_PRE_GATE=PB7,
     MMU_POST_GEAR=PB5,
 
-    MMU_TENSION=PB8, # First lane has the sync feedback sensor attached to it!
-    MMU_COMPRESSION=PB9, # First lane has the sync feedback sensor attached to it!
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu1]
-mcu: mmu1 
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu2]
-mcu: mmu2 
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu3]
-mcu: mmu3
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu4]
-mcu: mmu4 
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu5]
-mcu: mmu5
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu6]
-mcu: mmu6
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
-
-    EJECT_BUTTON=PB6,
-
-[board_pins mmu7]
-mcu: mmu7
-aliases:
-
-    MMU_GEAR_UART=PA15,
-    MMU_GEAR_STEP=PD0,
-    MMU_GEAR_DIR=PD1,
-    MMU_GEAR_ENABLE=PD2,
-    MMU_GEAR_DIAG=,
-
-    MMU_PRE_GATE=PB7,
-    MMU_POST_GEAR=PB5,
+    MMU_TENSION=PB8,
+    MMU_COMPRESSION=PB9,
 
     EJECT_BUTTON=PB6,
 ```
