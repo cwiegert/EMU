@@ -31,6 +31,8 @@ If making your own and soldering the JST headers, you'll need the below addition
 - 3x JST XH Series Straight Through Hole PCB Header, 4 Contact
 - 3x JST XH Series Straight Through Hole PCB Header, 2 Contact 
 
+## Sourcing
+The hatch board PCBs can be sourced from [kashine6 shop](https://www.aliexpress.com/item/1005011529532141.html) in packs of 5, or ordered DIY from JLCPCB or alternative PCB manufacturers.
 
 ## This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
