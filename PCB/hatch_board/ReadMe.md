@@ -27,7 +27,7 @@ Due to the PCB being thinner than the printed box wiring hatch, **the 2x M3x8mm 
 
 If buying pre-assembled, the corresponding straight through hole PCB header JST connectors in the BOM are no longer needed (1x JST XH 8 pin plug and 1x JST XH 4 pin plug).
 
-If making your own and soldering the JST headers, you'll need the below JST PCB headers:
+If making your own, or buying bare PCBs and soldering the JST headers yourself, you'll need the below JST PCB headers:
 - 3x JST XH Series Straight Through Hole PCB Header, 4 Contact
 - 3x JST XH Series Straight Through Hole PCB Header, 2 Contact
 - 1x JST XH Series Straight Through Hole PCB Header, 8 Contact **(part of the EMU BOM)**
