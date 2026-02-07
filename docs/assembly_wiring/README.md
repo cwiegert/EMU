@@ -1,22 +1,25 @@
 # EMU - BOM, Printing, Assembly and Wiring Guide
 
 ## Table of Contents
-- [BOM](#bom)
-- [Print Settings](#print-settings)
-  - [Filamentalist components and Lane stepper components](#filamentalist-components-and-lane-stepper-components)
-  - [Dry Box components](#dry-box-components)
-  - [Base unit components](#base-unit-components)
-- [Assembly Videos](#assembly-videos)
-  - [Part 1: Filamentalist and Stepper Assembly Guide](#part-1-filamentalist-and-stepper-assembly-guide)
-  - [Part 2: Drybox Assembly Guide](#part-2-drybox-assembly-guide)
-  - [Part 3: Base Assembly Guide](#part-3-base-assembly-guide)
-  - [Part 4: Electronics Assembly Guide](#part-3-base-assembly-guide)
-  - [Part 5: EMU Sync Assembly images](#part-5-emu-sync-assembly-images)
-- [Wiring Instructions and Diagrams](#wiring-instructions-and-diagrams)
-- [Wiring key dimensions](#wiring-key-dimensions)
-  - [Base wiring dimensions](#base-wiring-dimensions)
-  - [PCB Hatch wiring dimensions](#pcb-hatch-wiring-dimensions)
-  - [DIY Hatch (no pcb) wiring dimensions](#diy-hatch-no-pcb-wiring-dimensions)
+- [EMU - BOM, Printing, Assembly and Wiring Guide](#emu---bom-printing-assembly-and-wiring-guide)
+  - [Table of Contents](#table-of-contents)
+  - [BOM](#bom)
+  - [Print Settings](#print-settings)
+    - [Filamentalist components and Lane stepper components:](#filamentalist-components-and-lane-stepper-components)
+    - [Dry Box components:](#dry-box-components)
+    - [Base unit components:](#base-unit-components)
+  - [Assembly Videos](#assembly-videos)
+    - [Part 1: Filamentalist and Stepper Assembly Guide](#part-1-filamentalist-and-stepper-assembly-guide)
+    - [Part 2: Drybox Assembly Guide](#part-2-drybox-assembly-guide)
+    - [Part 3: Base Assembly Guide](#part-3-base-assembly-guide)
+    - [Part 4: Electronics Assembly Guide](#part-4-electronics-assembly-guide)
+    - [Part 5: EMU Sync Assembly images](#part-5-emu-sync-assembly-images)
+    - [Combiner:](#combiner)
+  - [Wiring Instructions and Diagrams](#wiring-instructions-and-diagrams)
+  - [Wiring key dimensions](#wiring-key-dimensions)
+    - [Base wiring dimensions](#base-wiring-dimensions)
+    - [PCB Hatch wiring dimensions](#pcb-hatch-wiring-dimensions)
+    - [DIY Hatch (no pcb) wiring dimensions](#diy-hatch-no-pcb-wiring-dimensions)
 
 <p align="center">
   <img src="/docs/assets/images/EMU_multi_lane_unit.png" width="100%">
@@ -26,7 +29,7 @@
 The EMU Bill of Materials can be found here: [Draft BOM](https://docs.google.com/spreadsheets/d/1jYJXBgpc_iLDfC17fC2LTYKrSEy5ocPbGEQ_EEOGCvI)
 
 **Recommended optional extras:**
-1. [PCB hatch boards](https://github.com/DW-Tas/EMU/tree/main/PCB/hatch_board) - simplifies wiring.
+1. [PCB hatch boards](https://github.com/DW-Tas/EMU/tree/main/PCB%20(optional)/hatch_board) - simplifies wiring.
 2. [Proportional Sync Feedback Sensor](https://www.aliexpress.com/item/1005010470743517.html) - allows for clog, tangle detection and more accurate syncronisation between the EMU and the extruder.
 
 ## Print Settings
