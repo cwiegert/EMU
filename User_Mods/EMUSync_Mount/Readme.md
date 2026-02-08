@@ -25,6 +25,12 @@ both 4040 and 2020 mounts are avialable and with the edges of the mount extended
 - 1 Heat-set inserts M3×5×4)
 - 3 M3 Square Nut
 
+<img width="498" height="419" alt="image" src="https://github.com/user-attachments/assets/e96dcf03-3760-4f06-922f-4864d7a0e60a" />
+
+<img width="517" height="452" alt="image" src="https://github.com/user-attachments/assets/45495fad-1804-40a5-bb38-9c6848958836" />
+
+<img width="457" height="472" alt="image" src="https://github.com/user-attachments/assets/286641ce-8af9-4cb0-b89a-23878b170e6a" />
+
 
 ## Credits
 
