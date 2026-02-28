@@ -84,6 +84,16 @@ Baseline setup is now complete!
 <br/><br/>
 ## Configuring the EMU hardware
 
+### Update your printer.cfg
+Include the below items at the top of your printer.cfg. The mmu/base and client macros should already exist, following the setup wizard.
+```
+[include mmu/base/*.cfg]
+[include mmu/addons/mmu_eject_buttons.cfg]
+[include mmu/optional/client_macros.cfg]
+[include emu_macros.cfg] # download this file from the EMU repo and upload to your printer
+# [include mmu/addons/blobifier.cfg] # Enable this if you have a blobifier set up
+```
+
 ### Update mmu/base/mmu.cfg
 The Happy hare installer generates a generic mmu.cfg file that needs re-writing for the EMU. 
 
