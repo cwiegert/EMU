@@ -32,7 +32,8 @@ The EMU Bill of Materials can be found here: [Draft BOM](https://docs.google.com
 ## Recommended Upgrades
 While entirely optional, the below upgrades are highly recommended. 
 1. [PCB hatch boards](https://github.com/DW-Tas/EMU/tree/main/PCB%20(optional)/hatch_board) - simplifies wiring, sealing of the box and reduces soldering need.
-2. [Proportional Sync Feedback Sensor](https://www.aliexpress.com/item/1005010470743517.html) - allows for clog, tangle detection and more accurate syncronisation between the EMU and the extruder.
+2. [Eject button multi-LED PCB](https://github.com/DW-Tas/EMU/tree/main/PCB%20(optional)/multi_led_button) - simplifies wiring and displays animated effects when loading / unloading filament.
+3. [Proportional Sync Feedback Sensor](https://www.aliexpress.com/item/1005010470743517.html) - allows for clog, tangle detection and more accurate syncronisation between the EMU and the extruder.
 
 ## Print Settings
 
@@ -121,13 +122,15 @@ The below print settings are recommended for the base units and their accessorie
 <br/>
 **Errata:**
 1. BMG Gear insertion is not visible in the video. Do this before adding the stepper main body and screwing it on.
-2. Switch sensor screws are M2x10 self taping or m2x8 bhcs/shcs
+2. Switch sensor screws are M2x10 self taping
 3. Filament path - BMG gear alignment step is not shown in the video. Insert some filament through the unit manually, loosen the BMG gear set screw and move it back and forth. Screw down the BMG gear.
 4. For the BMG tensioning arm, the bushing is no longer an option. 
 5. Add a washer to the stepper tensioning arm on both sides of the spring.
-6. Stepper body screws are all M3x20
-7. Front ECAS is no longer required
-8. PTFE tube lengths have been updated since the video release. [Use the dedicated cutter STL](https://github.com/DW-Tas/EMU/blob/main/STL/Tools/PTFE%20Cutter%20and%20Length%20Tool.stl) to measure and cut the PTFE tubes.
+6. Add a washer to the filamentalist tensioning arm on both sides of the spring.
+7. Stepper body screws are all M3x20
+8. Front ECAS is no longer required
+9. PTFE tube lengths have been updated since the video release. [Use the dedicated cutter STL](https://github.com/DW-Tas/EMU/blob/main/STL/Tools/PTFE%20Cutter%20and%20Length%20Tool.stl) to measure and cut the PTFE tubes.
+10. Front wheels now use a single M3x12 FHCS screw with a square nut placed in the corresponding wheel slot.
 
 ### Part 2: Drybox Assembly Guide
 [![EMU Dry Box Assembly Guide](https://img.youtube.com/vi/JZzMyOBCdSM/0.jpg)](https://www.youtube.com/watch?v=JZzMyOBCdSM)
@@ -142,6 +145,9 @@ The below print settings are recommended for the base units and their accessorie
 ### Part 3: Base Assembly Guide
 [![EMU Base Assembly Guide](https://img.youtube.com/vi/2SmAMuXas38/0.jpg)](https://www.youtube.com/watch?v=2SmAMuXas38)
 <br/>
+**Errata:**
+1. Base unit top clamping screws (M3x8 FHCS) now screw into heatset inserts inserted on the other side of the frame.
+2. The board and wago connectors now thread into heatset inserts from the top of the unit.
 
 ### Part 4: Electronics Assembly Guide
 [![EMU Elecrronics Assembly Guide](https://img.youtube.com/vi/Iang2JYkTh8/0.jpg)](https://www.youtube.com/watch?v=Iang2JYkTh8)
@@ -149,9 +155,9 @@ The below print settings are recommended for the base units and their accessorie
 
 **Errata:**
 1. Base unit top clamping screws (M3x8 FHCS) now screw into heatset inserts inserted on the other side of the frame.
-2. External combiner sensor is no longer specified in the default setup. That wiring part can be omitted.
-3. Encoder is no longer specified in the default setup. That wiring part can be omitted.
-4. Wiring is performed using the legacy method where a single LED chain was being created tied to the first EBB board. Current wiring approach wires each lane's LED's to the corresponding lane EBB, effectively moving away from one chain to N chains, where N is the number of lanes in the system. This simplifies wiring greatly and contains the wiring for each lane within the lane itself.
+2. External combiner sensor is no longer required. That wiring part can be omitted.
+3. Encoder is no longer required in the default setup. That wiring part can be omitted.
+4. In the video, LED wiring is performed using the legacy method where a single LED chain was being created tied to the first EBB board. Current wiring approach wires each lane's LED's to the corresponding lane EBB, effectively moving away from one chain to N chains, where N is the number of lanes in the system. This simplifies wiring greatly and contains the wiring for each lane within the lane itself.
 5. CANbus entry wires (Yellow/Green) are now connected directly to the first lane EBB42/36, ommiting the WAGO connectors. Only the power wires and LED signal wire are now connected to the WAGO connectors.
 
 ### Part 5: EMU Sync Assembly images

@@ -50,3 +50,4 @@ By default the SHT3X klipper module expects the sensor on 68 (0x44), however the
 #### How it should look when working (4 lane example)
 
 ![Working example](assets/4lanesht31.png)
+![Hot & Sweaty](assets/mounted.jpg)
