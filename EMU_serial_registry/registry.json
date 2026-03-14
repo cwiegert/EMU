@@ -12,7 +12,7 @@
   {
     "serial": "#0001",
     "discord_username": "igiannakas",
-    "discord_id": null,
+    "discord_id": "1051499583823429743",
     "email": null,
     "photo_url": null,
     "notes": "Legacy entry",
@@ -168,23 +168,5 @@
     "notes": "Legacy entry",
     "date": null,
     "approved_by": null
-  },
-  {
-    "serial": "#0017",
-    "discord_username": "dw.tas",
-    "discord_id": "1020617964732555306",
-    "photo_url": "https://emuimages.dwtas.net/1020617964732555306-1773487491700.jpg",
-    "notes": "Testing the serial engine",
-    "date": "2026-03-14",
-    "approved_by": "DW-Tas"
-  },
-  {
-    "serial": "#0018",
-    "discord_username": "ioannis_gi",
-    "discord_id": "1051499583823429743",
-    "photo_url": "https://emuimages.dwtas.net/1051499583823429743-1773491525375.jpeg",
-    "notes": "Yay!",
-    "date": "2026-03-14",
-    "approved_by": "igiannakas"
   }
 ]
