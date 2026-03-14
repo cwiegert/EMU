@@ -19,7 +19,6 @@
 **Serial #0014:** Pie36</br>
 **Serial #0015:** ammaze</br>
 **Serial #0016:** Doak</br>
-**Serial #0017:** dw.tas</br>
 </br>
 
 ### How to register:

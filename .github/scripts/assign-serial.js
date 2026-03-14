@@ -38,12 +38,11 @@ async function main() {
   const serial = `#${String(nextNum).padStart(4, '0')}`;
   console.log(`Assigning serial: ${serial}`);
 
-  // Append new entry
+  // Append new entry (email is stored privately in R2, not in the public registry)
   const newEntry = {
     serial,
     discord_username: submission.discord_username,
     discord_id: submission.discord_id,
-    email: submission.email,
     photo_url: submission.photo_url,
     notes: submission.notes || '',
     date: new Date().toISOString().split('T')[0],
@@ -88,7 +87,7 @@ async function main() {
           Authorization: `Bearer ${notifySecret}`,
         },
         body: JSON.stringify({
-          email: submission.email,
+          discord_id: submission.discord_id,
           serial,
           discord_username: submission.discord_username,
         }),
