@@ -177,5 +177,14 @@
     "notes": "Testing the serial engine",
     "date": "2026-03-14",
     "approved_by": "DW-Tas"
+  },
+  {
+    "serial": "#0018",
+    "discord_username": "ioannis_gi",
+    "discord_id": "1051499583823429743",
+    "photo_url": "https://emuimages.dwtas.net/1051499583823429743-1773491525375.jpeg",
+    "notes": "Yay!",
+    "date": "2026-03-14",
+    "approved_by": "igiannakas"
   }
 ]

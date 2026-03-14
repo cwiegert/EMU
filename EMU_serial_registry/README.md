@@ -2,7 +2,7 @@
 
 ![EMU Serial Print by igiannakas](/EMU_serial_registry/assets/EMU_serial_print_igiannakas.jpeg)
 
-**Serial #0000:** DW Tas</br>
+**Serial #0000:** dw.tas</br>
 **Serial #0001:** igiannakas</br>
 **Serial #0002:** Martijn</br>
 **Serial #0003:** burkfers</br>
@@ -20,6 +20,7 @@
 **Serial #0015:** ammaze</br>
 **Serial #0016:** Doak</br>
 **Serial #0017:** dw.tas</br>
+**Serial #0018:** ioannis_gi</br>
 </br>
 
 ### How to register:
