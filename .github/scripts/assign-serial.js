@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const REGISTRY_PATH = 'EMU_serial_registry/registry.json';
 const README_PATH = 'EMU_serial_registry/README.md';
@@ -57,11 +57,11 @@ async function main() {
   generateReadme(registry);
 
   // Git commit and push
-  execSync('git config user.name "github-actions[bot]"');
-  execSync('git config user.email "github-actions[bot]@users.noreply.github.com"');
-  execSync(`git add ${REGISTRY_PATH} ${README_PATH}`);
-  execSync(`git commit -m "Assign serial ${serial} to ${submission.discord_username}"`);
-  execSync('git push');
+  execFileSync('git', ['config', 'user.name', 'github-actions[bot]']);
+  execFileSync('git', ['config', 'user.email', 'github-actions[bot]@users.noreply.github.com']);
+  execFileSync('git', ['add', REGISTRY_PATH, README_PATH]);
+  execFileSync('git', ['commit', '-m', `Assign serial ${serial} to ${submission.discord_username}`]);
+  execFileSync('git', ['push']);
 
   // Comment on the issue
   const comment = `## Serial Assigned: \`${serial}\`\n\nCongratulations **${submission.discord_username}**! Your EMU serial number is \`${serial}\`.\n\nYour entry has been added to the [Official EMU Serial Registry](https://github.com/DW-Tas/emu/tree/main/EMU_serial_registry).`;
@@ -78,7 +78,7 @@ async function main() {
   });
 
   // Send email notification via Worker
-  if (workerUrl && notifySecret && submission.email) {
+  if (workerUrl && notifySecret && submission.discord_id) {
     try {
       const res = await fetch(workerUrl, {
         method: 'POST',
