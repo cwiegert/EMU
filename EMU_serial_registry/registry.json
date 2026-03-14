@@ -168,5 +168,18 @@
     "notes": "Legacy entry",
     "date": null,
     "approved_by": null
+  },
+  {
+    "serial": "#0017",
+    "discord_username": "dw.tas",
+    "discord_id": "1020617964732555306",
+    "media_urls": [
+      "https://emuimages.dwtas.net/1020617964732555306-1773496986876-0.jpg",
+      "https://emuimages.dwtas.net/1020617964732555306-1773496987213-1.jpg",
+      "https://www.youtube.com/watch?v=ldb0i5mRfNs"
+    ],
+    "notes": "Everyone loves the notes.\r\n\r\neven multi-line notes.",
+    "date": "2026-03-14",
+    "approved_by": "DW-Tas"
   }
 ]
