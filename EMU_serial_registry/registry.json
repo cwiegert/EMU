@@ -168,5 +168,17 @@
     "notes": "Legacy entry",
     "date": null,
     "approved_by": null
+  },
+  {
+    "serial": "#0017",
+    "discord_username": "apoth82",
+    "discord_id": "781244053983330335",
+    "media_urls": [
+      "https://emuimages.dwtas.net/781244053983330335-1773605611317-0.jpg",
+      "https://www.youtube.com/watch?v=XJatM3-tAKM"
+    ],
+    "notes": "Hello guys! I would like to ask a serial for my 2 lane setup :)",
+    "date": "2026-03-15",
+    "approved_by": "igiannakas"
   }
 ]
