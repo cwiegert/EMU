@@ -59,6 +59,9 @@ entry_leds:
 frame_rate: 24
 ```
 
+## Wiring variations
+The DOut pin (LED out) should connect to a 600mm AWG26-28 wire going to the LED IN pin of the lane dry box. Thatway the third wago can be ommitted.
+
 ## Lighting effects
 The multiple LEDs incorporated in the eject button allow you to create loading/unloading animations like the below. Also the integrated SMD switch provides a more tactile feel vs. the D2F switch and magnet assembly. 
 
