@@ -481,9 +481,20 @@ That file contains the **BME temperature and humidity sensor definitions** as be
 sensor_type: BME280
 i2c_address: 118
 i2c_mcu: mmu0  # mmu0=First lane, mmu1=second lane etc.
-i2c_software_scl_pin: mmu0:PB3
-i2c_software_sda_pin: mmu0:PB4
+i2c_software_scl_pin: mmu0:PB3 # mmu0=First lane, mmu1=second lane etc.
+i2c_software_sda_pin: mmu0:PB4 # mmu0=First lane, mmu1=second lane etc.
 ```
+If you're using the BOM **AHT20 temperature and humidity sensors**, use the below configuration block instead.
+```
+[temperature_sensor Lane_0]
+sensor_type: AHT2X
+aht10_report_time: 20
+i2c_address: 56
+i2c_mcu: mmu0 # mmu0=First lane, mmu1=second lane etc.
+i2c_software_scl_pin: mmu0:PB3 # mmu0=First lane, mmu1=second lane etc.
+i2c_software_sda_pin: mmu0:PB4 # mmu0=First lane, mmu1=second lane etc.
+```
+
 It also contains the definition of the onboard EBB temperature sensors used to control the unit fans. Similarly, it is set up for an 8 lane unit, so if you have less lanes, delete the corresponding blocks from the file.
 ```
 [temperature_sensor _Lane_N_onboard]
