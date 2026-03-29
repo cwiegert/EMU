@@ -22,10 +22,47 @@ The hatch board PCBs can be sourced from the below location:
 
 Alternatively use the supplied gerber, BOM and pick and place files to order from your favourite PCB manufacturer.
 
+## Software setup
+
+Update your **LED definitions** in the mmu_hardware.cfg as below. **Key change is chain count is equal to 5 instead of 2.**
+```
+[neopixel mmu0_leds] # one block per lane (Lane 0)
+pin: mmu0:MMU_NEOPIXEL
+chain_count: 5			# four for the eject button and one for the box
+color_order: GRBW		
+
+[neopixel mmu1_leds] # one block per lane (Lane 1)
+pin: mmu1:MMU_NEOPIXEL
+chain_count: 5			# four for the eject button and one for the box
+color_order: GRBW	
+
+[....]
+
+[neopixel mmuN_leds] # one block per lane (Lane 1)
+pin: mmuN:MMU_NEOPIXEL
+chain_count: 5			# four for the eject button and one for the box
+color_order: GRBW
+```
+Update your **LED allocation** to exit and entry LEDs in the mmu_hardware.cfg as below. **Key change is that leds 1 through to 4 are exit LEDs and LED 5 is the entry LED.**
+```
+[mmu_leds unit0]
+exit_leds:
+  neopixel:mmu0_leds (1,2,3,4) # add/remove lines to match number of lanes. LED 1-4 is for the button
+  neopixel:mmu1_leds (1,2,3,4)
+  [...]
+  neopixel:mmuN_leds (1,2,3,4)
+entry_leds:
+  neopixel:mmu0_leds (5) # add/remove lines to match number of lanes. LED 5 is for the box
+  neopixel:mmu1_leds (5)
+  [...]
+  neopixel:mmuN_leds (5)
+frame_rate: 24
+```
+
 ## Lighting effects
 The multiple LEDs incorporated in the eject button allow you to create loading/unloading animations like the below. Also the integrated SMD switch provides a more tactile feel vs. the D2F switch and magnet assembly. 
 
-The lighting effects are enabled automatically by happy hare. No separate configuration is required.
+The lighting effects are enabled automatically by happy hare.
 
 https://github.com/user-attachments/assets/2f268710-e0a5-41e1-b007-02235ff379cc
 
