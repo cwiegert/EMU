@@ -7,6 +7,8 @@ This is a provisional sofware setup guide for the EMU using Happy Hare v3. This 
 - [Installing Happy Hare](#installing-happy-hare)
 - [Configuring the EMU hardware](#configuring-the-emu-hardware)
 - [Configuring Happy Hare parameters](#configuring-happy-hare-parameters)
+- [Configuring PSF and Flowguard](#configuring-psf-and-flowguard)
+- [EMUSync PSF insights](#emusync-psf-insights)
 
 ## Installing Happy Hare
 Install Happy Hare. More detailed instructions can be found here: https://github.com/moggieuk/Happy-Hare/wiki/Installation
@@ -81,6 +83,16 @@ update_spoolman_location: True
 Baseline setup is now complete!
 <br/><br/>
 ## Configuring the EMU hardware
+
+### Update your printer.cfg
+Include the below items at the top of your printer.cfg. The mmu/base and client macros should already exist, following the setup wizard.
+```
+[include mmu/base/*.cfg]
+[include mmu/addons/mmu_eject_buttons.cfg]
+[include mmu/optional/client_macros.cfg]
+[include emu_macros.cfg] # download this file from the EMU repo and upload to your printer
+# [include mmu/addons/blobifier.cfg] # Enable this if you have a blobifier set up
+```
 
 ### Update mmu/base/mmu.cfg
 The Happy hare installer generates a generic mmu.cfg file that needs re-writing for the EMU. 
@@ -167,11 +179,10 @@ The below starter setup is for an 8 lane unit. To set up a lower lane count, pas
 1. **num_gates: 8 -> to equal to the number of lanes you have**
 2. **Delete the unecessary tmc and stepper blocks**. For example if you have a 5 lane unit, delete `[tmc2209 stepper_mmu_gear_5]`, `[tmc2209 stepper_mmu_gear_6]`, `[tmc2209 stepper_mmu_gear_7]` blocks from the below.
 3. **Delete the uncesessary pre_gate_switch_pin lines and post_gear_switch_pin lines**. For example for a 5 lane setup, remove `pre_gate_switch_pin_5`, `pre_gate_switch_pin_6`, `pre_gate_switch_pin_7`, `post_gear_switch_pin_5`, `post_gear_switch_pin_6`, `post_gear_switch_pin_7`
-4. **Update the LED chain_count**: 16 is for 8 lanes. This needs to be equal to number of lanes x 2. So for a 5 lane setup this would be set to 10.
-5. **Update the LED effect exit leds**: `exit_leds: neopixel:mmu_leds (1,3,5,7,9,11,13,15)` is for 8 lanes. For 5, this should be exit_leds: neopixel:mmu_leds (1,3,5,7,9)` .
-6. **Update the LED effect entry leds**: `entry_leds: neopixel:mmu_leds (2,4,6,8,10,12,14,16)` is for 8 lanes. For 5, this should be `entry_leds: neopixel:mmu_leds (2,4,6,8,10)`
+4. **Delete the uncesessary LED blocks**: add or remove `[neopixel mmuN_leds]` to match your number of lanes
+5. ***Delete the uncesessary LED effect exit leds**: Add / remove `neopixel:mmuN_leds (2)` and `neopixel:mmuN_leds (1)` from the corresponding entry and exit sections in the `[mmu_leds unit0]` block.
 
-If you have more than 8 lanes, insert accordingly additional blocks, following the patterns as illustrated in the full configuration file below.
+If you have more than 8 lanes, insert accordingly additional blocks, following the patterns illustrated in the full configuration file below.
 
 > [!TIP]
 > If during testing you see that the EMU stepper spins backwards, invert the dir_pin by adding a ! infront of it (!dir_pin).
@@ -187,7 +198,7 @@ File contents - mmu_hardware.cfg:
 ```
 [mmu_machine]
 num_gates: 8			
-mmu_vendor: Other			
+mmu_vendor: EMU			
 mmu_version: 1.0			
 
 selector_type: VirtualSelector
@@ -197,6 +208,16 @@ require_bowden_move: 1
 filament_always_gripped: 1	
 has_bypass: 1 
 
+# Add your temperature and humidity sensors here for them to be visible in mainsail. One line per lane.
+# Supported in HH vesion 3.42 and above.
+environment_sensors:   temperature_sensor Lane_0, 
+						            temperature_sensor Lane_1,
+                        temperature_sensor Lane_2,
+                        temperature_sensor Lane_3,
+                        temperature_sensor Lane_4,
+                        temperature_sensor Lane_5,
+                        temperature_sensor Lane_6,
+                        temperature_sensor Lane_7 
 
 # FILAMENT DRIVE GEAR STEPPER  -----------------------------------------------------------------------------------------
 [tmc2209 stepper_mmu_gear]
@@ -306,7 +327,7 @@ toolhead_switch_pin: ^EBBCan: PB5
 sync_feedback_tension_pin: ^mmu0:MMU_TENSION         # Compression is when you pull the bowden tubes (entry/exit) away from each other. Tension when you push the tubes together.
 sync_feedback_compression_pin: ^mmu0:MMU_COMPRESSION
 
-# Section below if using the Proportional (PFS) version of the EMU Sync. Run the calibration routine (MMU_CALIBRATE_PSENSOR) and
+# Section below if using the Proportional (PSF) version of the EMU Sync. Run the calibration routine (MMU_CALIBRATE_PSENSOR) and
 # update the sync_feedback_analog_max_compression, sync_feedback_analog_max_tension and sync_feedback_analog_neutral_point accordingly.
 # Comment out/delete the dual switch section above and uncomment the section below to use.
 #sync_feedback_analog_pin: mmu0:MMU_TH
@@ -316,17 +337,66 @@ sync_feedback_compression_pin: ^mmu0:MMU_COMPRESSION
 
 # MMU NEOPIXEL LED SUPPORT ------------------------------------------------------------------------------------
 
-[neopixel mmu_leds]
+[neopixel mmu0_leds] # one block per lane (Lane 0)
 pin: mmu0:MMU_NEOPIXEL
-chain_count: 16			# Number lanes x2
-color_order: GRBW		# Set based on your particular neopixel specification
+chain_count: 2			# one for the box and one for the eject button
+color_order: GRBW		
+
+[neopixel mmu1_leds] # one block per lane (Lane 1)
+pin: mmu1:MMU_NEOPIXEL
+chain_count: 2			
+color_order: GRBW		
+
+[neopixel mmu2_leds] # one block per lane (Lane 2)
+pin: mmu2:MMU_NEOPIXEL
+chain_count: 2		
+color_order: GRBW	
+
+[neopixel mmu3_leds] # one block per lane (Lane 3)
+pin: mmu3:MMU_NEOPIXEL
+chain_count: 2			
+color_order: GRBW
+
+[neopixel mmu4_leds] # one block per lane (Lane 4)
+pin: mmu4:MMU_NEOPIXEL
+chain_count: 2			
+color_order: GRBW
+
+[neopixel mmu5_leds] # one block per lane (Lane 5)
+pin: mmu5:MMU_NEOPIXEL
+chain_count: 2			
+color_order: GRBW
+
+[neopixel mmu6_leds] # one block per lane (Lane 6)
+pin: mmu6:MMU_NEOPIXEL
+chain_count: 2			
+color_order: GRBW
+
+[neopixel mmu7_leds] # one block per lane (Lane 7)
+pin: mmu7:MMU_NEOPIXEL
+chain_count: 2			
+color_order: GRBW	
 
 # MMU LED EFFECT SEGMENTS ----------------------------------------------------------------------------------------------
-
 [mmu_leds unit0]
-exit_leds:   neopixel:mmu_leds (1,3,5,7,9,11,13,15) # First, third, fifth LED and so forth.
-entry_leds: neopixel:mmu_leds (2,4,6,8,10,12,14,16) # Second, fourth, sixth LED and so forth.
-logo_leds:    
+exit_leds:
+  neopixel:mmu0_leds (1) # add/remove to match number of lanes
+  neopixel:mmu1_leds (1)
+  neopixel:mmu2_leds (1)
+  neopixel:mmu3_leds (1)
+  neopixel:mmu4_leds (1)
+  neopixel:mmu5_leds (1)
+  neopixel:mmu6_leds (1)
+  neopixel:mmu7_leds (1)
+entry_leds:
+  neopixel:mmu0_leds (2) # add/remove to match number of lanes
+  neopixel:mmu1_leds (2)
+  neopixel:mmu2_leds (2)
+  neopixel:mmu3_leds (2)
+  neopixel:mmu4_leds (2)
+  neopixel:mmu5_leds (2)
+  neopixel:mmu6_leds (2)
+  neopixel:mmu7_leds (2)
 frame_rate: 24
 
 enabled: True                           # LEDs are enabled at startup
@@ -339,10 +409,10 @@ white_light: (1, 1, 1)                  # RGB color for static white light
 black_light: (1, 1, 1)                  # RGB color used to represent "black" filament
 empty_light: (0.0, 0.0, 0.0)            # Empty gate has eject button "off"
 
-effect_loading:            mmu_blue_clockwise_slow, (0, 0, 0.4)
-effect_loading_extruder:   mmu_blue_clockwise_fast, (0, 0, 1)
-effect_unloading:          mmu_blue_anticlock_slow, (0, 0, 0.4)
-effect_unloading_extruder: mmu_blue_anticlock_fast, (0, 0, 1)
+effect_loading:            mmu_clockwise_fast, (0, 0, 0.4)
+effect_loading_extruder:   mmu_clockwise_slow, (0, 0, 1)
+effect_unloading:          mmu_anticlock_fast, (0, 0, 0.4)
+effect_unloading_extruder: mmu_anticlock_slow, (0, 0, 1)
 effect_heating:            mmu_breathing_red,       (0.3, 0, 0)
 effect_selecting:          mmu_white_fast,          (0.2, 0.2, 0.2)
 effect_checking:           mmu_white_fast,          (0.8, 0.8, 0.8)
@@ -353,9 +423,10 @@ effect_gate_selected:      mmu_static_blue,         (0, 0, 1)
 effect_gate_available:     mmu_static_white_dim,    (0.3, 0.3, 0.3)
 effect_gate_available_sel: mmu_ready_white,         (0.75, 0.75, 0.75)
 effect_gate_unknown:       mmu_static_orange,       (0.5, 0.2, 0)
-effect_gate_unknown_sel:   mmu_ready_orange,        (0.75, 0.3, 0)
+effect_gate_unknown_sel:   mmu_ready_orange ,       (0.75, 0.3, 0)
 effect_gate_empty:         mmu_static_black,        (0, 0, 0)
 effect_gate_empty_sel:     mmu_ready_red,           (0.2, 0, 0)
+
 ```
 
 ### Update mmu/addons/mmu_eject_buttons_hw.cfg
@@ -363,7 +434,7 @@ effect_gate_empty_sel:     mmu_ready_red,           (0.2, 0, 0)
 Start by completely deleting the content of that file and hitting save.
 
 **Step 2: Paste the below configuration in the mmu_eject_buttons_hw.cfg file**<br/><br/>
-The below starter setup is for an 8 lane unit. To set up a lower lane count, paste the complete content below and delete the corresponding [gcode_button mmu_eject_button_N] sections. If you have more than 8 lanes, add more blocks following the patterns below.
+The below starter setup is for an 8 lane unit. To set up a lower lane count, paste the complete content below and delete the corresponding `[gcode_button mmu_eject_button_N]` sections. If you have more than 8 lanes, add more blocks following the patterns below.
 ```
 [gcode_button mmu_eject_button_0]
 pin: mmu0:EJECT_BUTTON
@@ -399,7 +470,7 @@ press_gcode: _MMU_EJECT_BUTTON GATE=7
 ```
 
 ### Upload the emu_macros.cfg file and reference it in your printer.cfg
-The linked file here contains a set of configurations and definitions that are required for EMU to function. In addition, it contains a fan auto control macro, to minimize noise and ensure adequate unit cooling. File: https://github.com/DW-Tas/EMU/tree/main/macros
+The [linked file here](https://github.com/DW-Tas/EMU/tree/main/macros) contains a set of configurations and definitions that are required for EMU to function. In addition, it contains a fan auto control macro, to minimize noise and ensure adequate unit cooling.
 
 Upload that file in your klipper environment and add the below line to include it in your printer.cfg file:
 ```[include emu_macros.cfg]```
@@ -410,9 +481,20 @@ That file contains the **BME temperature and humidity sensor definitions** as be
 sensor_type: BME280
 i2c_address: 118
 i2c_mcu: mmu0  # mmu0=First lane, mmu1=second lane etc.
-i2c_software_scl_pin: mmu0:PB3
-i2c_software_sda_pin: mmu0:PB4
+i2c_software_scl_pin: mmu0:PB3 # mmu0=First lane, mmu1=second lane etc.
+i2c_software_sda_pin: mmu0:PB4 # mmu0=First lane, mmu1=second lane etc.
 ```
+If you're using the BOM **AHT20 temperature and humidity sensors**, use the below configuration block instead.
+```
+[temperature_sensor Lane_0]
+sensor_type: AHT2X
+aht10_report_time: 20
+i2c_address: 56
+i2c_mcu: mmu0 # mmu0=First lane, mmu1=second lane etc.
+i2c_software_scl_pin: mmu0:PB3 # mmu0=First lane, mmu1=second lane etc.
+i2c_software_sda_pin: mmu0:PB4 # mmu0=First lane, mmu1=second lane etc.
+```
+
 It also contains the definition of the onboard EBB temperature sensors used to control the unit fans. Similarly, it is set up for an 8 lane unit, so if you have less lanes, delete the corresponding blocks from the file.
 ```
 [temperature_sensor _Lane_N_onboard]
@@ -644,3 +726,99 @@ Unlike the hardware setup files, do not delete the content of this file. The bel
 variable_min_toolchange_z       : 15.0 # Be safe and dont scratch the bed
 variable_park_travel_speed      : 450  # Travel a bit faster to avoid stringing
 ```
+
+## Configuring PSF and Flowguard
+EMU and Happy Hare supports using a [proportional sync feedback sensor](https://github.com/DW-Tas/EMU/tree/main/STL/Tension-compression-sensor/Proportional%20Sync%20Feedback%20(PSF)%20Version) to accurately measure filament tension in the bowden tube. This is used in place of and instead of the dual switch EMUSync. The sensor [is available to purchase from Aliexpress](https://www.aliexpress.com/item/1005010470743517.html).
+
+The proportional sensor offers the below key advantages:
+1. Real time tension/compression monitoring in the bowden tube
+2. Precise syncronisation between the extruder and EMU steppers
+3. Real time detection of both clogs and tangles
+
+### PSF Configuration:
+The sensor is plugged in [as per the wiring diagram](https://github.com/DW-Tas/EMU/tree/main/docs/assembly_wiring#wiring-instructions-and-diagrams) - ground and signal plug into the EBB thermistor port and 5V to any unused 5V pins on the EBB.
+
+**Step 1:** Comment out or delete the below section in the mmu_hardware.cfg file: 
+```
+# sync_feedback_tension_pin: ^mmu0:MMU_TENSION         # Compression is when you pull the bowden tubes (entry/exit) away from each other. Tension when you push the tubes together.
+# sync_feedback_compression_pin: ^mmu0:MMU_COMPRESSION
+```
+
+**Step 2:** Uncomment or add the below section right below in the mmu_hardware.cfg file:
+```
+# Section below if using the Proportional (PSF) version of the EMU Sync. Run the calibration routine (MMU_CALIBRATE_PSENSOR) and
+# update the sync_feedback_analog_max_compression, sync_feedback_analog_max_tension and sync_feedback_analog_neutral_point accordingly.
+# Comment out/delete the dual switch section above and uncomment the section below to use.
+sync_feedback_analog_pin: mmu0:MMU_TH
+sync_feedback_analog_max_compression: 0.9435
+sync_feedback_analog_max_tension:     0.0982
+sync_feedback_analog_neutral_point:   0.5275
+```
+**Step 3:** Restart and test the sensor. 
+1. Pull the bowden tube and expand the EMUSync PSF sensor. While holding in the expanded position run the below macro in the printer console: `MMU_QUERY_PSENSOR`.
+2. Compress the sensor by pushing the ends together and run the same macro again. Record both values.
+> [!IMPORTANT]
+> You should see a **max raw value** greater than ~0.9 and a **min raw value** or less than ~0.1. If the values do not change when expanding and compressing the sensor recheck your wiring!
+
+**Step 4:** Set the EMUSync dimensions in the mmu_parameters.cfg file as below. Save and restart.
+```
+sync_feedback_enabled: 1		
+sync_feedback_buffer_range: 16		# Travel in "buffer" between compression/tension or one sensor and end
+sync_feedback_buffer_maxrange: 16	# Absolute maximum end-to-end travel (mm) provided by buffer
+sync_feedback_speed_multiplier: 5	# % "twolevel" gear speed delta to keep filament neutral in buffer
+sync_feedback_boost_multiplier: 3	# % "twolevel" extra gear speed boost for finding initial neutral position
+sync_feedback_extrude_threshold: 5	# Extruder movement (mm) for updates
+```
+
+**Step 5:** Calibrate the sensor.
+1. Load filament from any lane to the toolhead using a Tx (T0,T1 etc) command.
+2. In the console run `MMU_CALIBRATE_PSENSOR`
+3. Note down the produced values
+> [!IMPORTANT]
+> If the max and min values differ significantly (>0.1) from the min and max raw values above, your calibration has failed due to excess bowden tube slack or because the sensor is getting jammed due to excess friction. Validate that the sensor moves freely and run the calibration command as follows: `MMU_CALIBRATE_PSENSOR MOVE=50`
+
+The produced values should look like the below:
+```
+sync_feedback_analog_max_compression: 0.9435
+sync_feedback_analog_max_tension:     0.0982
+sync_feedback_analog_neutral_point:   0.5275
+```
+
+Update the corresponding values in the mmu_hardware.cfg file, save and restart.
+
+**Step 6:** Configure flowguard (clog/tangle detection) <br/>
+Edit the mmu_parameters.cfg file and amend the values below to match the suggested configuration.
+
+```
+flowguard_enabled: 1	
+flowguard_max_relief: 2
+flowguard_encoder_mode: 0
+```
+Save and restart. 
+
+**Step 7:** You can now start a print and test the sensor in a print
+1. Start a print and monitor the flowguard value in the MMU panel. It should remain close to the neutral (0) threshold
+2. Expand the sensor manually - flowguard should trigger a pause. Let go, and click resume. The print should continue uninterrupted.
+
+<img width="436" height="780" alt="image" src="https://github.com/user-attachments/assets/077a016e-9157-475b-a02c-4390ebe10665" />
+
+### EMUSync PSF insights:
+You can use the sync sensor to visualise your printer's extrusion consistency, checking whether you are pushing the hotend to its limits. To do so, enable logging `sync_feedback_debug_log: 1` in the mmu_parameters.cfg file and restart. Run a print and after it is complete, execute the below command in the printer shell `~/Happy-Hare/utils/plot_sync_feedback.sh ~/printer_data/logs/sync_5.jsonl` where sync_N being the lane number in use.
+
+You can read more on how to interpret the sync feedback telemetry data in the [Happy Hare wiki](https://github.com/moggieuk/Happy-Hare/wiki/Synchronized-Gear-Extruder#interpreting-telemetry).
+
+**Normal telemetry data with an "unstressed" hotend** </br>
+Notice how the orange line is **pretty flat and consistent**. This indicates that there is very little dynamic variation during printing between the EMU and the extruder, meaning the extruder can maintain ideal flow easily throughout the print. Also how the blue line (EMU rotation distance) converges and stabilises fairly quickly to a perfectly stable value.</br></br>
+<img width="1800" height="900" alt="image" src="https://github.com/user-attachments/assets/73aedbd2-5938-4414-8442-36321fd1d819" />
+
+**Telemetry data showing a tangle developing towards the end of the print** </br>
+Notice how the orange and blue lines slowly creep away from neutral and then flowguard (red vertical line) triggers saving the print.</br></br>
+<img width="1800" height="900" alt="T2 sim_plot" src="https://github.com/user-attachments/assets/c6760dec-85cd-4502-81f9-8a0fd76c5387" />
+
+**Telemetry data showing a hotend that is struggling to keep up with flow when printing at higher flow rates** </br>
+Notice how the blue line (RD) and orange line (sensor position) rapidly deviate from neutral when an object with high flow rate is printed.</br></br>
+<img width="1800" height="900" alt="image" src="https://github.com/user-attachments/assets/63324652-7d46-47a6-ad3e-42b72f09fb5a" />
+
+
+
+

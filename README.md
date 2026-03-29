@@ -8,6 +8,10 @@
 
 The EMU supports any number of lanes and base configurations; whether it is a **single lane setup** to assist filament loading, a **dual lane configuration** for endless spool, or a **multi-lane, multi base unit setup** for multi-material printing. It is also **expandable**, with no re-printing of parts required when upgrading from a 2 lane to a multiple lane setup.
 
+> [!TIP]
+> ### Crossbow Filament Cutter And A4T Toolhead
+> Make the EMU part of a complete system with the [Crossbow Filament Cutter](https://github.com/DW-Tas/Crossbow-Filament-Cutter) and the [A4T Toolhead](https://github.com/Armchair-Heavy-Industries/A4T).
+
 <p align="center">
   <img src="/docs/assets/images/EMU_multi_lane_unit.png" width="100%">
 </p>
@@ -67,10 +71,7 @@ Dual pre-stepper sensors ensure **consistent run-out detection** and reliable re
 In addition, the isolated boxes ensure that any left over, rewound, filament cannot interfere with neighbouring lanes, **preventing a jam**.
 
 ### Built on the Filamentalist
-The lane assembly is based on the proven **[filamentalist V3 design with 688 bearings](https://github.com/Enraged-Rabbit-Community/ERCF_v2/tree/master/Recommended_Options/Filamentalist_Rewinder/Filamentalist_FV3_Rewinder)**, with no modifications necessary. 
-- Existing 688 bearing version filamentalist parts can be reused when building an EMU.
-- Optionally, the revised tensioner mount further improves pre-stepper switch actuation.
-- Wide spool size compatibility - built on the 74mm filamentalist stock setup and fits even KVP filament spools.
+The lane assembly is based on the proven **[filamentalist V3 design with 688 bearings](https://github.com/Enraged-Rabbit-Community/ERCF_v2/tree/master/Recommended_Options/Filamentalist_Rewinder/Filamentalist_FV3_Rewinder)** with wide spool size compatibility. Built on the 74mm filamentalist stock setup, the unit fits even the slighlty wider KVP filament spools.
 
 <p align="center">
   <img src="/docs/assets/images/EMU_integrated_gate_unit_close_up.png" width="49%">
@@ -112,6 +113,11 @@ Each lane includes its own eject button, status LED, and a filament colour LED t
   <img src="https://github.com/user-attachments/assets/490c0b1e-656f-4c81-82c8-666672659762" alt="1 (2)" width="24%"/>
   <img src="https://github.com/user-attachments/assets/d3fef867-5b20-4a57-a406-df7a284d2550" alt="1 (3)" width="24%"/>
 </p>
+
+## Mods to main
+The following mods from the community have been adopted into the main EMU release
+ - Rim roller with square nuts: [martijnvanduijneveldt](https://github.com/martijnvanduijneveldt)
+ - EMU Wiring Hatch Board: [kashine6](https://github.com/kashine6)
 
 ## This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].

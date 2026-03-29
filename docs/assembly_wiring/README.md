@@ -4,6 +4,7 @@
 - [EMU - BOM, Printing, Assembly and Wiring Guide](#emu---bom-printing-assembly-and-wiring-guide)
   - [Table of Contents](#table-of-contents)
   - [BOM](#bom)
+  - [Recommended Upgrades](#recommended-upgrades)
   - [Print Settings](#print-settings)
     - [Filamentalist components and Lane stepper components:](#filamentalist-components-and-lane-stepper-components)
     - [Dry Box components:](#dry-box-components)
@@ -28,9 +29,11 @@
 ## BOM  
 The EMU Bill of Materials can be found here: [Draft BOM](https://docs.google.com/spreadsheets/d/1jYJXBgpc_iLDfC17fC2LTYKrSEy5ocPbGEQ_EEOGCvI)
 
-**Recommended optional extras:**
-1. [PCB hatch boards](https://github.com/DW-Tas/EMU/tree/main/PCB%20(optional)/hatch_board) - simplifies wiring.
-2. [Proportional Sync Feedback Sensor](https://www.aliexpress.com/item/1005010470743517.html) - allows for clog, tangle detection and more accurate syncronisation between the EMU and the extruder.
+## Recommended Upgrades
+While entirely optional, the below upgrades are highly recommended. 
+1. [PCB hatch boards](https://github.com/DW-Tas/EMU/tree/main/PCB%20(recommended%20options)/hatch_board) - simplifies wiring, sealing of the box and reduces soldering need.
+2. [Eject button multi-LED PCB](https://github.com/DW-Tas/EMU/tree/main/PCB%20(recommended%20options)/multi_led_button) - simplifies wiring and displays animated effects when loading / unloading filament.
+3. [Proportional Sync Feedback Sensor](https://www.aliexpress.com/item/1005010470743517.html) - allows for clog, tangle detection and more accurate syncronisation between the EMU and the extruder.
 
 ## Print Settings
 
@@ -47,6 +50,10 @@ The below print settings are recommended for the filamentalist and lane stepper 
 - One wall top and bottom surfaces (optional but recommended - parts look nicer)
 - Disable thick bridges
 - Z hop enabled to avoid nozzle scraping (0.2 is sufficient)
+
+
+> [!IMPORTANT]
+> The [Idler_Roller_Axle](https://github.com/DW-Tas/EMU/blob/main/STL/Filamentalist/Idler_Roller_Axle.stl) and [[a]_Stepper_Tension_Arm](https://github.com/DW-Tas/EMU/blob/main/STL/Stepper/%5Ba%5D_Stepper_Tension_Arm%5BMR693zz%5D.stl) are best to be printed with **999 walls** to ensure adequate strength of the part and less chance of breakage.
 
 > [!IMPORTANT]
 > **Parts are not shrinkage compensated** - calibrate your filament shrinkage first! If the bearings are loose, you're either under extruding, or over compensating for shrinkage.<br/>
@@ -115,13 +122,15 @@ The below print settings are recommended for the base units and their accessorie
 <br/>
 **Errata:**
 1. BMG Gear insertion is not visible in the video. Do this before adding the stepper main body and screwing it on.
-2. Switch sensor screws are M2x10 self taping or m2x8 bhcs/shcs
+2. Switch sensor screws are M2x10 self taping
 3. Filament path - BMG gear alignment step is not shown in the video. Insert some filament through the unit manually, loosen the BMG gear set screw and move it back and forth. Screw down the BMG gear.
 4. For the BMG tensioning arm, the bushing is no longer an option. 
 5. Add a washer to the stepper tensioning arm on both sides of the spring.
-6. Stepper body screws are all M3x20
-7. Front ECAS is no longer required
-8. PTFE tube lengths have been updated since the video release. [Use the dedicated cutter STL](https://github.com/DW-Tas/EMU/blob/main/STL/Tools/PTFE%20Cutter%20and%20Length%20Tool.stl) to measure and cut the PTFE tubes.
+6. Add a washer to the filamentalist tensioning arm on both sides of the spring.
+7. Stepper body screws are all M3x20
+8. Front ECAS is no longer required
+9. PTFE tube lengths have been updated since the video release. [Use the dedicated cutter STL](https://github.com/DW-Tas/EMU/blob/main/STL/Tools/PTFE%20Cutter%20and%20Length%20Tool.stl) to measure and cut the PTFE tubes.
+10. Front wheels now use a single M3x12 FHCS screw with a square nut placed in the corresponding wheel slot.
 
 ### Part 2: Drybox Assembly Guide
 [![EMU Dry Box Assembly Guide](https://img.youtube.com/vi/JZzMyOBCdSM/0.jpg)](https://www.youtube.com/watch?v=JZzMyOBCdSM)
@@ -136,6 +145,9 @@ The below print settings are recommended for the base units and their accessorie
 ### Part 3: Base Assembly Guide
 [![EMU Base Assembly Guide](https://img.youtube.com/vi/2SmAMuXas38/0.jpg)](https://www.youtube.com/watch?v=2SmAMuXas38)
 <br/>
+**Errata:**
+1. Base unit top clamping screws (M3x8 FHCS) now screw into heatset inserts inserted on the other side of the frame.
+2. The board and wago connectors now thread into heatset inserts from the top of the unit.
 
 ### Part 4: Electronics Assembly Guide
 [![EMU Elecrronics Assembly Guide](https://img.youtube.com/vi/Iang2JYkTh8/0.jpg)](https://www.youtube.com/watch?v=Iang2JYkTh8)
@@ -143,8 +155,10 @@ The below print settings are recommended for the base units and their accessorie
 
 **Errata:**
 1. Base unit top clamping screws (M3x8 FHCS) now screw into heatset inserts inserted on the other side of the frame.
-2. External combiner sensor is no longer specified in the default setup. That wiring part can be omitted.
-3. Encoder is no longer specified in the default setup. That wiring part can be omitted.
+2. External combiner sensor is no longer required. That wiring part can be omitted.
+3. Encoder is no longer required in the default setup. That wiring part can be omitted.
+4. In the video, LED wiring is performed using the legacy method where a single LED chain was being created tied to the first EBB board. Current wiring approach wires each lane's LED's to the corresponding lane EBB, effectively moving away from one chain to N chains, where N is the number of lanes in the system. This simplifies wiring greatly and contains the wiring for each lane within the lane itself.
+5. CANbus entry wires (Yellow/Green) are now connected directly to the first lane EBB42/36, ommiting the WAGO connectors. Only the power wires and LED signal wire are now connected to the WAGO connectors.
 
 ### Part 5: EMU Sync Assembly images
 <table>
@@ -185,36 +199,25 @@ Make sure the PTFE tube is pushed all the way inside the combiner. Not just at t
 ## Wiring Instructions and Diagrams
 Depending on the number of lanes assembled, the wiring will vary slightly. Below are some initial wiring key notes to get your started.<br/>
 
-**Multi-lane setup wiring notes (2+ lanes)**
-1. Please note that the sync feedback sensor is connected to the first lane board. The encoder and combiner endstop is connected to the second lane EBB board.
+**Wiring notes**
+1. Please note that the sync feedback sensor is connected to the first lane board.
 2. The CAN bus umbilical from the printer feeds power and the CAN H / L wires to the WAGO connectors in the first lane. 
-3. A 24V and Ground "bus" is established throughout the base unit using the two rearward WAGO connectors (WAGO 3 and WAGO 4).
-4. The EBB boards connect to the power bus for power via their XT ports.
-5. The EBB boards are daisy chained to establish the CANbus network. The first lane canbus High / Low / Power wires are connected to the first lane WAGO connectors.
-7. The second lane canbus High / Low wires are connected to the CAN out dupont connectors on the first board itself. Creates the daisy chain
+3. A 24V and Ground "bus" is established throughout the base unit using the two rear WAGO connectors (WAGO 3 and WAGO 4).
+4. The EBB boards connect to the power bus for power and plugged in using their Molex ports.
+5. The EBB boards are daisy chained to establish the CANbus network. The first lane canbus High / Low are connected to the box cable entry and power from the first lane WAGOs (wago 3 and 4).
+7. The second lane canbus High / Low wires are connected to the CAN out dupont connectors on the first board itself. This creates the daisy chain.
 9. The last EBB board needs the 120Ohm resistor installed.
-10. The second lane, third lane etc 2nd WAGO connector is used to connect the Neopixel Out wire from the eject button to the Neopixel In wire on the dry box.
-11. The second lane, third lane etc 1st WAGO connector is used to connect the Neopixel Out wire from the dry box to the next lane Neopixel In wire on the eject button.
+10. Each lane's 2nd WAGO connector is used to connect the Neopixel Out wire from the eject button to the Neopixel In wire on the dry box.
 
 **Adding a second base unit** <br/>
 You can daisy chain as many base units as you desire. Simply wire the XT30+2 CAN out port next to the last lane to the power bus and CAN H / L dupont connectors on the last EBB board. The next base unit can connect using a standard CAN Bus cable to the first unit.
 
-
-**Single-lane setup wiring notes (2+ lanes)** <br/>
-1. A single lane setup does not support an encoder/combiner. Instead, the Post Extruder sensor is configured in the Happy Hare configuration as the gate sensor.
-2. There is no daisy chaining required. The single EBB board is connected to the first lane WAGO connectors.
-3. There is no daisy chaining of subsequent lane Neopixels. 
 
 **EBB 42 wiring diagram**<br/>
 <p align="center">
   <img src="/docs/assets/wiring_diagrams/EMU_wiring_ebb42.png" width="95%">
 </p>
 
-**EBB 36 wiring diagram**<br/>
-Please note, the EBB36 uses identical pin definitions to the EBB42.
-<p align="center">
-  <img src="/docs/assets/wiring_diagrams/EMU_wiring_ebb36.png" width="95%">
-</p>
 
 **Printer PSU**<br/>
 > [!WARNING]
