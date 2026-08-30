@@ -161,12 +161,17 @@ class BME280:
 
     def handle_connect(self):
         self._init_bmxx80()
-# WoodWorker 07/19/2026 added to do an immediate read and not wait for next timer        
-#   prevents humidity holding at 97% until the next timee poll
-# Issue #72 in main EMU repo
+        # WoodWorker 07/19/2026: delay the first sample by one conversion
+        #   time rather than firing at NOW.  Reading at NOW returns the
+        #   chip's power-on register defaults, which held the reported
+        #   humidity at 97% until the next poll (bme280_report_time).
+        # Issue #72 in main EMU repo
         if self.max_sample_time is not None:
-            self.reactor.update_timer(self.sample_timer, self.reactor.monotonic() + self.max_sample_time)
-        self.reactor.update_timer(self.sample_timer, self.reactor.NOW)
+            self.reactor.update_timer(
+                self.sample_timer,
+                self.reactor.monotonic() + self.max_sample_time)
+        else:
+            self.reactor.update_timer(self.sample_timer, self.reactor.NOW)
 
     def setup_minmax(self, min_temp, max_temp):
         self.min_temp = min_temp
